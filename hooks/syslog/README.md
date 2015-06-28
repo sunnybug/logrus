@@ -5,8 +5,8 @@
 ```go
 import (
   "log/syslog"
-  "github.com/Sirupsen/logrus"
-  logrus_syslog "github.com/Sirupsen/logrus/hooks/syslog"
+  "github.com/gogap/logrus"
+  logrus_syslog "github.com/gogap/logrus/hooks/syslog"
 )
 
 func main() {

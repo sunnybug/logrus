@@ -2,11 +2,11 @@ package logrus_sentry
 
 import (
 	"fmt"
-	"time"
 	"net/http"
+	"time"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/getsentry/raven-go"
+	"github.com/gogap/logrus"
 )
 
 var (

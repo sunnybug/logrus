@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Sirupsen/logrus"
+	"github.com/gogap/logrus"
 )
 
 type notice struct {
