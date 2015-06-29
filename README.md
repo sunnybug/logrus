@@ -43,4 +43,4 @@ git.rd.rijin.com/yanglong/test_case/logrus.go:23[biz:membe]
 ```
 
 ## log on gray log example
-![picture](https://cloud.githubusercontent.com/assets/2741940/8403073/ede3e688-1e73-11e5-864c-ac901d86263a.png)
+![picture](https://cloud.githubusercontent.com/assets/2741940/8403170/af8b2602-1e74-11e5-8d4b-5029d0e2e00e.png)
