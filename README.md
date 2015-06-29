@@ -34,3 +34,13 @@ func main() {
 
 ```
 
+## log in file example
+
+```
+2015/06/29 15:24:52 [ERROR] member not login,member is 1001
+git.rd.rijin.com/yanglong/test_case/logrus.go:23[biz:membe]
+
+```
+
+## log on gray log example
+![picture](https://cloud.githubusercontent.com/assets/2741940/8403073/ede3e688-1e73-11e5-864c-ac901d86263a.png)
