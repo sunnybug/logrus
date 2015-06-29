@@ -26,26 +26,16 @@ type FileHook struct {
 }
 
 func (hook *FileHook) Fire(entry *logrus.Entry) (err error) {
-	file, lineNumber := caller.GetCallerIgnoringLogMulti(1)
-	if file != "" {
-		sep := fmt.Sprintf("%s/src/", os.Getenv("GOPATH"))
-		fileName := strings.Split(file, sep)
-		if len(fileName) >= 2 {
-			file = fileName[1]
-		}
-	}
-	entry.Data["file"] = file
-	entry.Data["line"] = lineNumber
-	message, err := entry.String()
+	message, err := getMessage(entry)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to read entry, %v", err)
 		return err
 	}
 	switch entry.Level {
 	case logrus.PanicLevel:
-		return hook.W.WriteMsg(fmt.Sprintf("[ERROR] %s", message), LevelError)
+		fallthrough
 	case logrus.FatalLevel:
-		return hook.W.WriteMsg(fmt.Sprintf("[ERROR] %s", message), LevelError)
+		fallthrough
 	case logrus.ErrorLevel:
 		return hook.W.WriteMsg(fmt.Sprintf("[ERROR] %s", message), LevelError)
 	case logrus.WarnLevel:
@@ -69,4 +59,22 @@ func (hook *FileHook) Levels() []logrus.Level {
 		logrus.InfoLevel,
 		logrus.DebugLevel,
 	}
+}
+
+func getMessage(entry *logrus.Entry) (message string, err error) {
+	file, lineNumber := caller.GetCallerIgnoringLogMulti(2)
+	if file != "" {
+		sep := fmt.Sprintf("%s/src/", os.Getenv("GOPATH"))
+		fileName := strings.Split(file, sep)
+		if len(fileName) >= 2 {
+			file = fileName[1]
+		}
+	}
+	var fields string
+	for k, v := range entry.Data {
+		fields = fields + fmt.Sprintf("%s:%v;", k, v)
+	}
+	call := fmt.Sprintf("%s:%d[%s]", file, lineNumber, fields[:len(fields)-2])
+	message = fmt.Sprintf("%s\n%s", entry.Message, call)
+	return
 }
