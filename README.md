@@ -10,26 +10,27 @@ package main
 import (
 	log "github.com/gogap/logrus"
 	"github.com/gogap/logrus/hooks/file"
-	"github.com/gogap/logrus/hooks/syslog"
+	"github.com/gogap/logrus/hooks/graylog"
 )
 
 func main() {
-	//设置输出格式为json
 	log.SetFormatter(&log.JSONFormatter{})
 
-	//输出到syslog
-	graylog, err := syslog.NewHook("udp", "boot2docker:9002", syslog.LOG_DEBUG, "yijifu")
+	//输出到graylog
+	glog, err := graylog.NewHook("boot2docker:9001", "yijifu", nil)
 	if err != nil {
 		log.Error(err)
 		return
 	}
-	log.AddHook(graylog)
+	log.AddHook(glog)
 
 	//输出到文件
 	log.AddHook(file.NewHook("logs/ss.log"))
-
-	log.Errorf("member not login,member is %s", "1001")
+	
+	//yijifu组件中的member模块的日志
+	log.WithField("biz", "member").Errorf("member not login,member is %s", "1001")
 }
+
 
 ```
 
