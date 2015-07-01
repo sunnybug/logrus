@@ -98,7 +98,7 @@ func (hook *GraylogHook) fire() {
 		extra["_line"] = entry.line
 		m := gelf.Message{
 			Version:  "1.1",
-			Host:     host,
+			Host:     hook.Facility + ":" + host,
 			Short:    string(short),
 			Full:     full,
 			TimeUnix: float64(time.Now().Unix()),
