@@ -74,7 +74,10 @@ func getMessage(entry *logrus.Entry) (message string, err error) {
 	for k, v := range entry.Data {
 		fields = fields + fmt.Sprintf("%s:%v;", k, v)
 	}
-	call := fmt.Sprintf("%s:%d[%s]", file, lineNumber, fields[:len(fields)-1])
+	if len(fields) > 0 {
+		fields = fields[:len(fields)-1]
+	}
+	call := fmt.Sprintf("%s:%d[%s]", file, lineNumber, fields)
 	message = fmt.Sprintf("%s\n%s", entry.Message, call)
 	return
 }
