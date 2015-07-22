@@ -38,7 +38,7 @@ func main() {
 
 ```
 2015/06/29 15:24:52 [ERROR] member not login,member is 1001
-git.rd.rijin.com/yanglong/test_case/logrus.go:23[biz:membe]
+github.com/gogap/test_case/logrus.go:23[biz:membe]
 
 ```
 
