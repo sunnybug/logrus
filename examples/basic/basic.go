@@ -1,18 +1,19 @@
 package main
 
 import (
-	"github.com/gogap/logrus"
+	"github.com/sunnybug/logrus"
+	"github.com/sunnybug/logrus/hooks/file"
 )
 
 var log = logrus.New()
 
 func init() {
-	log.Formatter = new(logrus.JSONFormatter)
 	log.Formatter = new(logrus.TextFormatter) // default
 	log.Level = logrus.DebugLevel
+	logrus.AddHook(file.NewHook("log/ss.log"))
 }
 
-func main() {
+func main1() {
 	defer func() {
 		err := recover()
 		if err != nil {
@@ -48,3 +49,21 @@ func main() {
 		"size":   9009,
 	}).Panic("It's over 9000!")
 }
+
+func main() {
+	logrus.SetFormatter(&logrus.TextFormatter{})
+
+//	//输出到graylog
+//	glog, err := graylog.NewHook("boot2docker:9001", "yijifu", nil)
+//	if err != nil {
+//		logrus.Error(err)
+//		return
+//	}
+//	logrus.AddHook(glog)
+
+	//输出到文件
+	logrus.AddHook(file.NewHook("log/ss.log"))
+	
+	logrus.Errorf("member not login,member is %s", "1001")
+}
+

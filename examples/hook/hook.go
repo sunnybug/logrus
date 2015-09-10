@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/gogap/logrus"
-	"github.com/gogap/logrus/hooks/airbrake"
+	"github.com/sunnybug/logrus"
+	"github.com/sunnybug/logrus/hooks/airbrake"
 )
 
 var log = logrus.New()
